@@ -13,15 +13,18 @@ function defineVirtualDevices(src) {
 			if (cell.readonly)
 				ro = cell.readonly;
 
-            var val;
-			if (typeof cell.get == "string")
+            var val = cell.value;
+			if (val === undefined && (typeof cell.get == "string") && (cell.get !== ""))
 				val = dev[cell.get];
-			else if(cell.get)
-				if (cell.get.type === "whenChanged") {
-					val = dev[cell.get.topic];
-				}
 
             if (cell.type === "switch") {
+                getDevice(device.name).addControl(cell.title, {
+                    type: cell.type,
+                    readonly: ro,
+                    value: val
+                });
+            }
+            else if (cell.type === "alarm") {
                 getDevice(device.name).addControl(cell.title, {
                     type: cell.type,
                     readonly: ro,

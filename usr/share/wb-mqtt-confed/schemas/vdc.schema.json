@@ -22,12 +22,6 @@
 					"propertyOrder": 1,
 					"description": "title_desc"
 				},
-				"value": {
-					"title": "Value",
-					"type": "string",
-					"propertyOrder": 2,
-					"description": "value_desc"
-				},
 				"readonly": {
 					"title": "Readonly",
 					"type": "boolean",
@@ -51,13 +45,13 @@
 				"get": {
 					"type": "string",
 					"title": "getter",
-					"description" : "get_desc",
+					"description": "get_desc",
 					"propertyOrder": 20
 				},
 				"set": {
 					"type": "string",
 					"title": "setter",
-					"description" : "set_desc",
+					"description": "set_desc",
 					"propertyOrder": 21
 				}
 			},
@@ -77,6 +71,40 @@
 					"options": {
 						"hidden": true
 					}
+				},
+				"value": {
+					"title": "Value",
+					"type": "boolean",
+					"_format": "checkbox",
+					"propertyOrder": 2,
+					"description": "value_desc"
+				}
+			},
+			"required": [
+				"type"
+			]
+		},
+		"alarm_cell": {
+			"title": "Alarm",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"title": "Type",
+					"enum": [
+						"alarm"
+					],
+					"default": "alarm",
+					"options": {
+						"hidden": true
+					}
+				},
+				"value": {
+					"title": "Value",
+					"type": "boolean",
+					"_format": "checkbox",
+					"propertyOrder": 2,
+					"description": "value_desc"
 				}
 			},
 			"required": [
@@ -97,6 +125,12 @@
 					"options": {
 						"hidden": true
 					}
+				},
+				"value": {
+					"title": "Value",
+					"type": "string",
+					"propertyOrder": 2,
+					"description": "value_desc"
 				}
 			},
 			"required": [
@@ -117,6 +151,12 @@
 					"options": {
 						"hidden": true
 					}
+				},
+				"value": {
+					"title": "Value",
+					"type": "number",
+					"propertyOrder": 2,
+					"description": "value_desc"
 				},
 				"min": {
 					"type": "number",
@@ -149,6 +189,12 @@
 					},
 					"propertyOrder": 10
 				},
+				"value": {
+					"title": "Value",
+					"type": "number",
+					"propertyOrder": 2,
+					"description": "value_desc"
+				},
 				"units": {
 					"type": "string",
 					"title": "Units"
@@ -180,6 +226,9 @@
 						},
 						{
 							"$ref": "#/definitions/value_cell"
+						},
+						{
+							"$ref": "#/definitions/alarm_cell"
 						}
 					]
 				}
@@ -242,40 +291,40 @@
 			}
 		}
 	},
-	    "translations": {
-        "en": {
-            "VDC": "Virtual device constructor",
+	"translations": {
+		"en": {
+			"VDC": "Virtual device constructor",
 			"VDC_desc": "",
 			"VD": "Virtual devices",
-            "getter": "Read value from topic (creates whenChanged rule)",
-            "setter": "Write value to topic (creates whenChanged rule)",
-			"title_desc" : "Control name, published in /devices/.../controls/.../meta/title MQTT-topic",
-			"value_desc" : "Default value",
-			"forceDefault_desc" : "If set, default value will be set on controller startup. Otherwise, last saved value will be set",
-			"lazyInit_desc" : "If set, control will not be created unless value is set to it.",
-			"get_desc" : "Creates whenChanged rule with this MQTT-topic to get value from. Control name of this virtual device can be set without device name. Examples: wb-adc/Vin, my_switch",
-			"set_desc" : "Creates whenChanged rule with this MQTT-topic to set value to. Control name of this virtual device can be set without device name. Examples: wb-adc/Vin, my_relay"
-        },
-        "ru": {
-            "VDC": "Конструктор виртуальных устройств (Virtual device)",
+			"getter": "Read value from topic (creates whenChanged rule)",
+			"setter": "Write value to topic (creates whenChanged rule)",
+			"title_desc": "Control name, published in /devices/.../controls/.../meta/title MQTT-topic",
+			"value_desc": "Default value",
+			"forceDefault_desc": "If set, default value will be set on controller startup. Otherwise, last saved value will be set",
+			"lazyInit_desc": "If set, control will not be created unless value is set to it.",
+			"get_desc": "Creates whenChanged rule with this MQTT-topic to get value from. Control name of this virtual device can be set without device name. Examples: wb-adc/Vin, my_switch",
+			"set_desc": "Creates whenChanged rule with this MQTT-topic to set value to. Control name of this virtual device can be set without device name. Examples: wb-adc/Vin, my_relay"
+		},
+		"ru": {
+			"VDC": "Конструктор виртуальных устройств (Virtual device)",
 			"VDC_desc": "Позволяет конструировать виртуальные устройства со всеми типами параметров. Также позволяет создать простые автоматизации: указать MQTT-топик, значение которого должен отслеживать и принимать данный параметр, а также указать MQTT-топик, которому должно устанавливаться значение параметра при его изменении",
 			"VD": "Виртуальные устройства",
-            "Name": "Название",
-            "Title": "Заголовок",
-            "Readonly": "Только чтение",
-            "getter": "Читать значение из MQTT-топика",
-            "setter": "Записывать значение в MQTT-топик",
+			"Name": "Название",
+			"Title": "Заголовок",
+			"Readonly": "Только чтение",
+			"getter": "Читать значение из MQTT-топика",
+			"setter": "Записывать значение в MQTT-топик",
 			"Type": "Тип",
 			"Min": "Мин",
 			"Max": "Макс",
 			"Units": "Единицы измерения",
 			"Cells": "Параметры",
-			"title_desc" : "Имя, публикуемое в MQTT-топике /devices/.../controls/.../meta/title для данного параметра",
-			"value_desc" : "Значение параметра по умолчанию",
-			"forceDefault_desc" : "Если выбрано, при запуске контроллера параметр всегда устанавливается в значение по умолчанию. Иначе он будет установлен в последнее сохранённое значение.",
-			"lazyInit_desc" : "Если выбрано, при описании контрола в коде фактическое создание его в mqtt происходить не будет до тех пор, пока этому контролу не будет присвоено какое-то значение.",
-			"get_desc" : "Cоздает правило whenChanged. Для чтения значения параметра текущего виртуального устройства достаточно указать только его имя. Если исходный топик логического типа и данный параметр типа Range, то параметр будет принимать значение (false -> Min, true -> Max), в остальных случаях значение присваивается как есть. Примеры: wb-adc/Vin, my_switch",
-			"set_desc" : "Cоздает правило whenChanged. Для записи значения в параметр текущего виртуального устройства достаточно указать только его имя. Если параметр логического типа и топик типа Range, то топику будет передаваться значение (false -> Min, true -> Max), в остальных случаях значение присваивается как есть.  Примеры: wb-adc/Vin, my_relay"
-        }
-    }
+			"title_desc": "Имя, публикуемое в MQTT-топике /devices/.../controls/.../meta/title для данного параметра",
+			"value_desc": "Значение параметра по умолчанию",
+			"forceDefault_desc": "Если выбрано, при запуске контроллера параметр всегда устанавливается в значение по умолчанию. Иначе он будет установлен в последнее сохранённое значение.",
+			"lazyInit_desc": "Если выбрано, при описании контрола в коде фактическое создание его в mqtt происходить не будет до тех пор, пока этому контролу не будет присвоено какое-то значение.",
+			"get_desc": "Cоздает правило whenChanged. Для чтения значения параметра текущего виртуального устройства достаточно указать только его имя. Если исходный топик логического типа и данный параметр типа Range, то параметр будет принимать значение (false -> Min, true -> Max), в остальных случаях значение присваивается как есть. Примеры: wb-adc/Vin, my_switch",
+			"set_desc": "Cоздает правило whenChanged. Для записи значения в параметр текущего виртуального устройства достаточно указать только его имя. Если параметр логического типа и топик типа Range, то топику будет передаваться значение (false -> Min, true -> Max), в остальных случаях значение присваивается как есть.  Примеры: wb-adc/Vin, my_relay"
+		}
+	}
 }
